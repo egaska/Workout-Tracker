@@ -1,6 +1,8 @@
+
 let db = require("../models");
 
 module.exports = function(app){
+    console.log(app);
 
     //Get all workouts
     app.get("/api/workouts", (req, res) => {
@@ -13,22 +15,15 @@ module.exports = function(app){
         });
     });
 
-    //Add new exercise
-    app.put("/api/workouts/:id", (req, res) => {
-
-        db.workout.findOneAndUpdate(
-            { _id: req.params.id },
-            {
-                $inc: { totalDuration: req.body.duration },
-                $push: { exercises: req.body }
-            },
-            { new: true }).then(dbWorkout => {
-                res.json(dbWorkout);
-            }).catch(err => {
-                res.json(err);
-            });
-
-    });
-
+        //Creates a new workout
+        app.post("/api/workouts", async (req, res)=> {
+            try{
+                const response = await db.Workout.create({type: "workout"})
+                res.json(response);
+            }
+            catch(err){
+                console.log("error occurred creating a workout: ", err)
+            }
+        })
 
 };

@@ -21,21 +21,21 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workouts", {
 });
 
 // routes
-app.use(require("./routes/apiRoutes"));
+require("./routes/apiRoutes")(app);
 
   //To index
   app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname + "/public/index.html"));
+    res.sendFile(path.join(__dirname + "./public/index.html"));
   });
 
   //To exercise
   app.get("/exercise", function (req, res) {
-    res.sendFile(path.join(__dirname, "../public/exercise.html"));
+    res.sendFile(path.join(__dirname, "./public/exercise.html"));
   });
 
   //To stats
   app.get("/stats", function (req, res) {
-    res.sendFile(path.join(__dirname, "../public/stats.html"));
+    res.sendFile(path.join(__dirname, "./public/stats.html"));
   });
 
 
