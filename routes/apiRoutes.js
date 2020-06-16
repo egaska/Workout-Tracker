@@ -18,7 +18,7 @@ module.exports = function(app){
         //Creates a new workout
         app.post("/api/workouts", async (req, res)=> {
             try{
-                const response = await db.Workout.create({type: "workout"})
+                const response = await db.orkout.create({type: "workout"})
                 res.json(response);
             }
             catch(err){
@@ -26,4 +26,17 @@ module.exports = function(app){
             }
         })
 
+        //Gets the workouts in a range of time
+        app.get("/api/workouts/range", (req, res) => {
+
+            db.workout.find({}).then(dbWorkout => {
+                console.log("ALL WORKOUTS");
+                console.log(dbWorkout);
+    
+                res.json(dbWorkout);
+            }).catch(err => {
+                res.json(err);
+            });
+    
+        });
 };
